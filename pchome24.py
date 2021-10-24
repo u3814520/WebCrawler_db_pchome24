@@ -16,6 +16,6 @@ if r.status_code == requests.codes.ok:
         for product in data['prods']:
             name = product['name']
             price = product['price']
-            print(name,price)
+            print(f'商品名稱：{name}\n售價：{price}元')
 
 
