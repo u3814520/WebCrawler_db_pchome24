@@ -9,10 +9,18 @@ coll = db.products
 name = coll.find({'name': {'$regex': '.*KYMCO.*', '$options': 'i'}})
 
 # 價格大於七萬  # gt大於  # gte大於等於
-price = coll.find({'price': {'$gte': 70000}})
+price = coll.find({'price': {'$gte': 90000}})
 
 # and
 data = coll.find({'$and': [{'name': {'$regex': '.*七期.*'}}, {'price': {'$gte': 70000}}]})
 
-for d in data:
+# update
+coll.update_one({'name':'光陽GP 125-鼓煞'},{'$set':{'price':56000}})
+
+# upsert=True 如果沒有就新增
+coll.update_one({'name':'Hwaiwei'},{'$set':{'price':90000}},upsert=True)
+
+coll.delete_one({'name':'Hwaiwei'})
+
+for d in price:
     print(d['name'], d['price'])

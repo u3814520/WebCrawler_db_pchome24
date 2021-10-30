@@ -15,5 +15,8 @@ if r.status_code == requests.codes.ok:
         r = requests.get(
             f'https://ecshweb.pchome.com.tw/search/v3.3/all/results?q={urlkeywords}&page={page}&sort=sale/dc')
         data = r.json()
-        for products in data['prods']:
-            client.pchome.products.insert_one(products)
+        try :
+            for products in data['prods']:
+                client.pchome.products.insert_one(products)
+        except KeyError:
+            pass
