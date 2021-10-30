@@ -20,7 +20,8 @@ coll.update_one({'name':'光陽GP 125-鼓煞'},{'$set':{'price':56000}})
 # upsert=True 如果沒有就新增
 coll.update_one({'name':'Hwaiwei'},{'$set':{'price':90000}},upsert=True)
 
+# delete
 coll.delete_one({'name':'Hwaiwei'})
 
-for d in price:
+for d in data:
     print(d['name'], d['price'])
