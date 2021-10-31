@@ -18,7 +18,7 @@ data = coll.find({'$and': [{'name': {'$regex': '.*七期.*'}}, {'price': {'$gte'
 coll.update_one({'name':'光陽GP 125-鼓煞'},{'$set':{'price':56000}})
 
 # upsert=True 如果沒有就新增
-coll.update_one({'name':'Hwaiwei'},{'$set':{'price':90000}},upsert=True)
+coll.update_one({'name':'Hwaiwei'},{'$set':{'price':90000,'author':'Ann'}},upsert=True)
 
 # delete
 coll.delete_one({'name':'Hwaiwei'})
