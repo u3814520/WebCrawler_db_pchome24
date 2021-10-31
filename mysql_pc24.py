@@ -3,7 +3,7 @@ from mysql.connector import errorcode
 import requests
 import urllib.parse
 
-keywords=str(input("請輸入搜尋關鍵字:"))
+keywords = str(input("請輸入搜尋關鍵字:"))
 urlkeywords = urllib.parse.quote(keywords)
 DB_NAME = 'PChome'
 
@@ -69,7 +69,6 @@ for table_name in TABLES:
     else:
         print("OK")
 
-
 # 新增資料
 add_product = ("INSERT INTO product "
                "(name, price) "
@@ -79,17 +78,18 @@ r = requests.get(f'https://ecshweb.pchome.com.tw/search/v3.3/all/results?q={urlk
 if r.status_code == requests.codes.ok:
     data = r.json()
     all_page = data['totalPage']
-    for page in range(1,all_page+1):
-        r = requests.get(f'https://ecshweb.pchome.com.tw/search/v3.3/all/results?q={urlkeywords}&page={page}&sort=sale/dc')
+    for page in range(1, all_page + 1):
+        r = requests.get(
+            f'https://ecshweb.pchome.com.tw/search/v3.3/all/results?q={urlkeywords}&page={page}&sort=sale/dc')
         data = r.json()
         for product in data['prods']:
             name = product['name']
             price = product['price']
             print(f'商品名稱：{name}\n售價：{price}元')
-            data_product=(name,price)
+            data_product = (name, price)
             # Insert new product (框架,data)
-            cursor.execute(add_product,data_product)
-            id = cursor.lastrowid   # id從最後一號接續
+            cursor.execute(add_product, data_product)
+            id = cursor.lastrowid  # id從最後一號接續
 cnx.commit()
 print('close')
 cursor.close()
